@@ -1,4 +1,4 @@
-- hosts: BDD-MSPR3
+- hosts: all
   become: true
   tasks:
     - name: Ensure MariaDB is installed
