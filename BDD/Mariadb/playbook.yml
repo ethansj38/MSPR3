@@ -1,0 +1,48 @@
+- hosts: mariadb_servers
+  become: true
+  tasks:
+    - name: Ensure MariaDB is installed
+      apt:
+        name: mariadb-server
+        state: present
+        update_cache: yes
+
+    - name: Start and enable MariaDB service
+      systemd:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: Set the root password for MariaDB
+      mysql_user:
+        name: root
+        host: localhost
+        password: 'your_root_password'
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        check_implicit_admin: yes
+
+    - name: Remove anonymous users
+      mysql_user:
+        name: ''
+        host_all: yes
+        state: absent
+        login_user: root
+        login_password: 'your_root_password'
+
+    - name: Disallow root login remotely
+      mysql_user:
+        name: root
+        host: '{{ item }}'
+        state: absent
+        login_user: root
+        login_password: 'your_root_password'
+      loop:
+        - '%'
+        - '::1'
+
+    - name: Remove the test database
+      mysql_db:
+        name: test
+        state: absent
+        login_user: root
+        login_password: 'your_root_password'
