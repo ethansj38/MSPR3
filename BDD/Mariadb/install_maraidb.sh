@@ -8,4 +8,4 @@ then
     sudo apt install -y ansible
 fi
 
-ansible-playbook -i localhost, -c local Mariadb/playbook.yml --ask-become-pass
+ansible-playbook -i localhost, -c local playbook.yml --ask-become-pass
