@@ -6,11 +6,13 @@
         name: mariadb-server
         state: present
         update_cache: yes
+        
     - name: Installation des dépendances nécessaires
        apt:
          name:
            - python 
-        state: present
+         state: present
+         
     - name: Start and enable MariaDB service
       systemd:
         name: mariadb
