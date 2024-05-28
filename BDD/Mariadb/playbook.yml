@@ -22,7 +22,7 @@
     - name: Set the root password for MariaDB
       mysql_user:
         name: root
-        host: all
+        host: localhost
         password: '1Mdppmspr!01*'
         login_unix_socket: /var/run/mysqld/mysqld.sock
         check_implicit_admin: yes
